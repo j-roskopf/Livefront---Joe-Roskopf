@@ -8,6 +8,7 @@
 
     <ImageView
         android:id="@+id/movieItemPosterImage"
+        android:transitionName="@string/movieDetailImageTransitionName"
         android:layout_width="185dp"
         android:layout_height="match_parent"
         android:layout_marginBottom="8dp"

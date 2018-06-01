@@ -3,7 +3,6 @@ package com.livefront
 import android.app.Activity
 import android.app.Application
 import android.support.v4.app.Fragment
-import com.facebook.drawee.backends.pipeline.Fresco
 import com.livefront.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -18,9 +17,7 @@ class LivefrontApplication : Application(), HasActivityInjector, HasSupportFragm
 
     override fun onCreate() {
         super.onCreate()
-
-        Fresco.initialize(this)
-
+        
         DaggerAppComponent
                 .builder()
                 .application(this)

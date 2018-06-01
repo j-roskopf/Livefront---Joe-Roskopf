@@ -2,18 +2,26 @@ package com.livefront.main.ui
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.widget.ImageView
 import com.livefront.R
+import com.livefront.detail.ui.DetailActivity
 import com.livefront.main.adapter.GenericMovieAdapter
+import com.livefront.main.adapter.ItemInteractionListener
 import com.livefront.model.network.MovieResponse
+import com.livefront.model.network.Result
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(), ItemInteractionListener {
 
     private val upcomingGenericMovieAdapter: GenericMovieAdapter by lazy { GenericMovieAdapter(this) }
     private val mostPopularAllTimeGenericMovieAdapter: GenericMovieAdapter by lazy { GenericMovieAdapter(this) }
@@ -31,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerViews()
 
         //fetch upcoming
-        mainViewModel.fetchMoviesFromCallType(upcomingGenericMovieAdapter.getAndIcrementPage(), CallType.Upcoming)
+        mainViewModel.fetchMoviesFromCallType(upcomingGenericMovieAdapter.getAndIncrementPage(), CallType.Upcoming)
         mainViewModel.upcomingMovies.observe(this as LifecycleOwner, Observer { movieResponse ->
             displayData(
                     movieResponse = movieResponse,
@@ -42,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         //fetch most popular all time
-        mainViewModel.fetchMoviesFromCallType(mostPopularAllTimeGenericMovieAdapter.getAndIcrementPage(), CallType.MostPopularAllTime)
+        mainViewModel.fetchMoviesFromCallType(mostPopularAllTimeGenericMovieAdapter.getAndIncrementPage(), CallType.MostPopularAllTime)
         mainViewModel.mostPopularAllTimeMovies.observe(this as LifecycleOwner, Observer { movieResponse ->
             displayData(
                     movieResponse = movieResponse,
@@ -53,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         //fetch most popular current year
-        mainViewModel.fetchMoviesFromCallType(mostPopularAllTimeGenericMovieAdapter.getAndIcrementPage(), CallType.MostPopularCurrentYear)
+        mainViewModel.fetchMoviesFromCallType(mostPopularAllTimeGenericMovieAdapter.getAndIncrementPage(), CallType.MostPopularCurrentYear)
         mainViewModel.mostPopularCurrentYearMovies.observe(this as LifecycleOwner, Observer { movieResponse ->
             displayData(
                     movieResponse = movieResponse,
@@ -64,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         //fetch movies currently in theatre
-        mainViewModel.fetchMoviesFromCallType(theatreMovieGenericAdapter.getAndIcrementPage(), CallType.Theatre)
+        mainViewModel.fetchMoviesFromCallType(theatreMovieGenericAdapter.getAndIncrementPage(), CallType.Theatre)
         mainViewModel.theatreMovies.observe(this as LifecycleOwner, Observer { movieResponse ->
             displayData(
                     movieResponse = movieResponse,
@@ -118,6 +126,13 @@ class MainActivity : AppCompatActivity() {
         adapter.isLoading = false
         adapter.setResults(movieResponse.results ?: listOf())
         adapter.totalAmountOfPages = movieResponse.totalPages ?: 0
+    }
+
+    override fun onItemClicked(result: Result, image: ImageView) {
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.EXTRA_BUNDLE_RESULT, result)
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, image as View, getString(R.string.movieDetailImageTransitionName))
+        startActivity(intent, options.toBundle())
     }
 
 }

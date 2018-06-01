@@ -68,7 +68,7 @@ class MostPopularAllTimeCall @Inject constructor(private val movieService: Movie
                     if(adapter.canAddMoreItems()) {
                         adapter.addLoadingItem()
                         adapter.notifyItemInserted(adapter.itemCount)
-                        fetchMovies(adapter.getAndIcrementPage(), liveData)
+                        fetchMovies(adapter.getAndIncrementPage(), liveData)
                     }
                 }
             }

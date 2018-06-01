@@ -67,7 +67,7 @@ class UpcomingMovieCall @Inject constructor(private val movieService: MovieServi
                     if(adapter.canAddMoreItems()) {
                         adapter.addLoadingItem()
                         adapter.notifyItemInserted(adapter.itemCount)
-                        fetchMovies(adapter.getAndIcrementPage(), liveData)
+                        fetchMovies(adapter.getAndIncrementPage(), liveData)
                     }
                 }
             }

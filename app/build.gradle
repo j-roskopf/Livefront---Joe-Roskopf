@@ -32,6 +32,10 @@ android {
             buildConfigField "String", "API_KEY", '"f1c9e9f42afb80bdef74821bef41b4ca"'
         }
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 kotlin {
@@ -42,7 +46,7 @@ kotlin {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation "android.arch.lifecycle:runtime:1.1.1"
@@ -96,8 +100,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$coroutinesVersion"
 
-    def frescoVersion = "1.9.0"
-    implementation "com.facebook.fresco:fresco:$frescoVersion"
+    def picassoVersion = "2.71828"
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
 
     def mockitoCoreVersion = "2.11.0"
     def mockitoKotlinVersion = "1.5.0"

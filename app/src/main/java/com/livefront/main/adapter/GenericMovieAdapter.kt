@@ -1,43 +1,38 @@
 package com.livefront.main.adapter
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
-import com.facebook.drawee.view.SimpleDraweeView
-import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.livefront.R
 import com.livefront.model.network.Result
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.generic_movie_result_row_item.view.*
 import kotlinx.android.synthetic.main.loading_item.view.*
-
 
 private const val VIEW_TYPE_ITEM = 0
 private const val VIEW_TYPE_LOADING = 1
 
-class GenericMovieAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var currentPage = 1
+class GenericMovieAdapter(private val onItemInteractionListener: ItemInteractionListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var currentPage = 1
     var totalAmountOfPages = 1
     private var results: List<Result?> = listOf()
     private var onLoadMoreListener: OnLoadMoreListener? = null
     internal var isLoading: Boolean = false
-
 
     override fun getItemViewType(position: Int): Int {
         return if (results[position] == null) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.d("D","debugDebug - $position ${itemCount - 1} $isLoading ${canAddMoreItems()}")
         if (position >= itemCount - 1 && !isLoading && canAddMoreItems()) {
             isLoading = true
             onLoadMoreListener?.loadMore()
         }
         when (holder) {
-            is MovieViewHolder -> holder.setProperties(results[position])
+            is MovieViewHolder -> holder.setProperties(results[position], onItemInteractionListener)
             is LoadingViewHolder -> holder.setIndeterminate()
         }
     }
@@ -45,10 +40,10 @@ class GenericMovieAdapter(private val context: Context) : RecyclerView.Adapter<R
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_ITEM) {
-            val view = LayoutInflater.from(context).inflate(R.layout.generic_movie_result_row_item, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.generic_movie_result_row_item, parent, false)
             MovieViewHolder(view)
         } else {
-            val view = LayoutInflater.from(context).inflate(R.layout.loading_item, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.loading_item, parent, false)
             LoadingViewHolder(view)
         }
     }
@@ -74,8 +69,11 @@ class GenericMovieAdapter(private val context: Context) : RecyclerView.Adapter<R
         notifyItemRemoved(itemCount)
     }
 
+    fun canAddMoreItems(): Boolean {
+        return currentPage < totalAmountOfPages
+    }
 
-    fun getAndIcrementPage(): Int {
+    fun getAndIncrementPage(): Int {
         return currentPage++
     }
 
@@ -83,20 +81,22 @@ class GenericMovieAdapter(private val context: Context) : RecyclerView.Adapter<R
         this.results = results
     }
 
-    fun canAddMoreItems(): Boolean {
-       return currentPage < totalAmountOfPages
-    }
 }
 
 class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val movieItemPosterImage = view.movieItemPosterImage as SimpleDraweeView
+    val movieItemPosterImage = view.movieItemPosterImage as ImageView
 
-    internal fun setProperties(result: Result?) {
+    internal fun setProperties(result: Result?, onItemInteractionListener: ItemInteractionListener?) {
         if (result?.getFullPosterPathW185() != null) {
-            movieItemPosterImage.setImageURI(result.getFullPosterPathW185())
+            Picasso.get().load(result.getFullPosterPathW185()).into(movieItemPosterImage)
         } else {
-            val imageRequest = ImageRequestBuilder.newBuilderWithResourceId(R.drawable.no_image_available).build()
-            movieItemPosterImage.setImageRequest(imageRequest)
+            //todo set no image available
+        }
+
+        itemView.setOnClickListener {
+            result?.let {
+                onItemInteractionListener?.onItemClicked(it, movieItemPosterImage)
+            }
         }
     }
 }
@@ -107,4 +107,8 @@ class LoadingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     internal fun setIndeterminate() {
         loadingProgressBar.isIndeterminate = true
     }
+}
+
+interface ItemInteractionListener {
+    fun onItemClicked(result: Result, imageView: ImageView)
 }

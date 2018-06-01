@@ -1,9 +1,14 @@
 package com.livefront.model.network
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.livefront.BuildConfig
+import kotlinx.android.parcel.Parcelize
 
+private const val WIDTH_185_POSTER_QUALIFIER = "w185"
+
+@Parcelize
 data class Result(
         @SerializedName("vote_count")
         @Expose
@@ -47,8 +52,7 @@ data class Result(
         @SerializedName("release_date")
         @Expose
         var releaseDate: String? = null
-) {
-    private val WIDTH_185_POSTER_QUALIFIER = "w185"
+) : Parcelable {
 
     internal fun getFullPosterPathW185(): String? {
         posterPath?.let {
