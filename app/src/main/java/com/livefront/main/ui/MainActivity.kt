@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val upcomingGenericMovieAdapter: GenericMovieAdapter by lazy { GenericMovieAdapter(this) }
     private val mostPopularAllTimeGenericMovieAdapter: GenericMovieAdapter by lazy { GenericMovieAdapter(this) }
     private val mostPopularYearGenericMovieAdapter: GenericMovieAdapter by lazy { GenericMovieAdapter(this) }
+    private val theatreMovieGenericAdapter: GenericMovieAdapter by lazy { GenericMovieAdapter(this) }
 
     @Inject
     lateinit var mainViewModel: MainViewModel
@@ -61,6 +62,17 @@ class MainActivity : AppCompatActivity() {
                     callType = CallType.MostPopularCurrentYear
             )
         })
+
+        //fetch movies currently in theatre
+        mainViewModel.fetchMoviesFromCallType(theatreMovieGenericAdapter.getAndIcrementPage(), CallType.Theatre)
+        mainViewModel.theatreMovies.observe(this as LifecycleOwner, Observer { movieResponse ->
+            displayData(
+                    movieResponse = movieResponse,
+                    adapter = theatreMovieGenericAdapter,
+                    recyclerView = mainViewTheatreMoviesRecyclerView,
+                    callType = CallType.Theatre
+            )
+        })
     }
 
     /**
@@ -85,6 +97,11 @@ class MainActivity : AppCompatActivity() {
         val mostPopularYearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         mainViewMostPopularCurrentYearRecyclerView.layoutManager = mostPopularYearLayoutManager
         mainViewMostPopularCurrentYearRecyclerView.adapter = mostPopularYearGenericMovieAdapter
+
+        //movies in theatre
+        val theatreLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        mainViewTheatreMoviesRecyclerView.layoutManager = theatreLayoutManager
+        mainViewTheatreMoviesRecyclerView.adapter = theatreMovieGenericAdapter
     }
 
     private fun displayData(movieResponse: MovieResponse?, adapter: GenericMovieAdapter, recyclerView: RecyclerView, callType: CallType) {

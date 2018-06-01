@@ -2,6 +2,7 @@ package com.livefront.main.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class GenericMovieAdapter(private val context: Context) : RecyclerView.Adapter<R
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.d("D","debugDebug - $position ${itemCount - 1} $isLoading ${canAddMoreItems()}")
         if (position >= itemCount - 1 && !isLoading && canAddMoreItems()) {
             isLoading = true
             onLoadMoreListener?.loadMore()
