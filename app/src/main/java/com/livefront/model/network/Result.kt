@@ -2,7 +2,7 @@ package com.livefront.model.network
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-
+import com.livefront.BuildConfig
 
 data class Result(
         @SerializedName("vote_count")
@@ -47,4 +47,13 @@ data class Result(
         @SerializedName("release_date")
         @Expose
         var releaseDate: String? = null
-)
+) {
+    private val WIDTH_185_POSTER_QUALIFIER = "w185"
+
+    internal fun getFullPosterPathW185(): String? {
+        posterPath?.let {
+            return BuildConfig.BASE_POSTER_PATH.plus(WIDTH_185_POSTER_QUALIFIER).plus(posterPath)
+        }
+        return null
+    }
+}

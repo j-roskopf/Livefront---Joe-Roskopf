@@ -1,6 +1,6 @@
 package com.livefront.di
 
-import com.livefront.main.MainActivity
+import com.livefront.main.ui.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

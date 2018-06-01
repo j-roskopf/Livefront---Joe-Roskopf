@@ -16,5 +16,5 @@ data class MovieResponse(
     var totalPages: Int? = null,
     @SerializedName("results")
     @Expose
-    var results: List<Result>? = null
+    var results: List<Result?>? = null
 )
