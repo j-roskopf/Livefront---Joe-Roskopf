@@ -11,6 +11,7 @@ import java.util.*
 @RunWith(MockitoJUnitRunner::class)
 class MovieImageAdapterTests {
 
+    //amount of mock MovieImages to generate
     private val amountOfImages = 100
 
     private lateinit var movieImageAdapter: MovieImageAdapter

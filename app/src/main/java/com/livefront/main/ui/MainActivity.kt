@@ -105,7 +105,7 @@ class MainActivity : BaseActivity(), ItemInteractionListener {
     private fun updateAdapterWithResponse(movieResponse: MovieResponse, adapter: GenericMovieAdapter) {
         adapter.removeLoadingItem()
         adapter.isLoading = false
-        adapter.setResults(movieResponse.results ?: listOf())
+        adapter.results = movieResponse.results ?: listOf()
         adapter.totalAmountOfPages = movieResponse.totalPages ?: 0
     }
 
