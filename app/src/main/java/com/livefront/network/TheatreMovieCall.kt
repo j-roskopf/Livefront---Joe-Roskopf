@@ -3,14 +3,11 @@ package com.livefront.network
 import android.arch.lifecycle.MutableLiveData
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import com.livefront.android.extensions.formattedCurrentDate
-import com.livefront.android.extensions.formattedCurrentDateWeekOffset
 import com.livefront.main.adapter.GenericMovieAdapter
 import com.livefront.main.adapter.OnLoadMoreListener
 import com.livefront.model.network.MovieResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 import javax.inject.Inject
 
 private const val THEATRE_DATE_WEEK_OFFSET = -3
@@ -24,12 +21,9 @@ class TheatreMovieCall @Inject constructor(private val movieService: MovieServic
      * @param page - the current page to fetch results for (Note - page starts at 1)
      */
     override fun fetchMovies(page: Int, liveData: MutableLiveData<MovieResponse?>) {
-        Log.d("D","debugDebug for page before and after $page ${Calendar.getInstance().formattedCurrentDate()} ${Calendar.getInstance().formattedCurrentDateWeekOffset(-3)}")
         //get all movies released before today but after 3 weeks ago
         movieService.getMoviesCurrentlyInTheatre(
-                page = page,
-                primaryReleaseYearBefore = Calendar.getInstance().formattedCurrentDate(),
-                primaryReleaseYearAfter = Calendar.getInstance().formattedCurrentDateWeekOffset(THEATRE_DATE_WEEK_OFFSET)
+                page = page
         ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->

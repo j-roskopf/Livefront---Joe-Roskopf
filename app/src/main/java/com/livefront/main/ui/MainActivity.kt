@@ -5,23 +5,22 @@ import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
+import com.livefront.BaseActivity
 import com.livefront.R
 import com.livefront.detail.ui.DetailActivity
 import com.livefront.main.adapter.GenericMovieAdapter
 import com.livefront.main.adapter.ItemInteractionListener
 import com.livefront.model.network.MovieResponse
 import com.livefront.model.network.Result
-import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 
-class MainActivity : AppCompatActivity(), ItemInteractionListener {
+class MainActivity : BaseActivity(), ItemInteractionListener {
 
     private val upcomingGenericMovieAdapter: GenericMovieAdapter by lazy { GenericMovieAdapter(this) }
     private val mostPopularAllTimeGenericMovieAdapter: GenericMovieAdapter by lazy { GenericMovieAdapter(this) }
@@ -32,7 +31,6 @@ class MainActivity : AppCompatActivity(), ItemInteractionListener {
     lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

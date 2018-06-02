@@ -3,6 +3,7 @@ package com.livefront.network
 import com.livefront.BuildConfig
 import com.livefront.model.network.MovieResponse
 import com.livefront.model.network.detail.DetailResponse
+import com.livefront.model.network.image.ImageResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,8 +17,8 @@ interface MovieService {
      *
      * Default sorting
      */
-    @GET("discover/movie?api_key=${BuildConfig.API_KEY}")
-    fun getUpcomingMovies(@Query("primary_release_date.gte") primaryReleaseDate: String, @Query("page") page: Int): Observable<MovieResponse>
+    @GET("movie/upcoming?api_key=${BuildConfig.API_KEY}")
+    fun getUpcomingMovies(@Query("page") page: Int): Observable<MovieResponse>
 
     /**
      * Get the most popular movies of all time
@@ -26,7 +27,7 @@ interface MovieService {
      *
      * Sorted by vote average descending
      */
-    @GET("discover/movie?sort_by=popularity.desc&api_key=${BuildConfig.API_KEY}")
+    @GET("movie/top_rated?api_key=${BuildConfig.API_KEY}")
     fun getAllTimeMostPopularMovies(@Query("page") page: Int): Observable<MovieResponse>
 
     /**
@@ -46,11 +47,13 @@ interface MovieService {
      *
      * Default sorting
      */
-    @GET("discover/movie?api_key=${BuildConfig.API_KEY}")
-    fun getMoviesCurrentlyInTheatre(@Query("primary_release_date.gte") primaryReleaseYearAfter: String,
-                                    @Query("primary_release_date.lte") primaryReleaseYearBefore: String,
-                                    @Query("page") page: Int): Observable<MovieResponse>
+    @GET("movie/now_playing?api_key=${BuildConfig.API_KEY}")
+    fun getMoviesCurrentlyInTheatre(@Query("page") page: Int): Observable<MovieResponse>
+
 
     @GET("movie/{id}?api_key=${BuildConfig.API_KEY}")
     fun getDetailsForMovie(@Path("id") id: String): Observable<DetailResponse>
+
+    @GET("movie/{id}/images?api_key=${BuildConfig.API_KEY}")
+    fun getImagesForMovie(@Path("id") id: String): Observable<ImageResponse>
 }

@@ -5,4 +5,8 @@
     <string name="movieDetailImageTransitionName">movieImage</string>
     <string name="detail_vote_count">%1$s votes</string>
     <string name="details_runtime">%1$s minutes</string>
+    <string name="error_toast">An error occurred</string>
+    <string name="detail_api_error">It looks like there was an API error</string>
+    <string name="detail_no_budget">No budget provided</string>
+    <string name="detail_no_revenue">No revenue provided</string>
 </resources>

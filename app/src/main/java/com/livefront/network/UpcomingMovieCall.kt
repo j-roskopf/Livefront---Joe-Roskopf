@@ -2,13 +2,11 @@ package com.livefront.network
 
 import android.arch.lifecycle.MutableLiveData
 import android.support.v7.widget.RecyclerView
-import com.livefront.android.extensions.formattedCurrentDate
 import com.livefront.main.adapter.GenericMovieAdapter
 import com.livefront.main.adapter.OnLoadMoreListener
 import com.livefront.model.network.MovieResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 import javax.inject.Inject
 
 class UpcomingMovieCall @Inject constructor(private val movieService: MovieService): MovieCallInterface {
@@ -20,7 +18,7 @@ class UpcomingMovieCall @Inject constructor(private val movieService: MovieServi
      * @param page - the current page to fetch results for (Note - page starts at 1)
      */
     override fun fetchMovies(page: Int, liveData: MutableLiveData<MovieResponse?>) {
-        movieService.getUpcomingMovies(Calendar.getInstance().formattedCurrentDate(), page)
+        movieService.getUpcomingMovies(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->

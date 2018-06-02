@@ -6,9 +6,6 @@ import com.google.gson.annotations.SerializedName
 import com.livefront.BuildConfig
 import kotlinx.android.parcel.Parcelize
 
-private const val WIDTH_185_POSTER_QUALIFIER = "w185"
-private const val WIDTH_500_POSTER_QUALIFIER = "w500"
-
 @Parcelize
 data class Result(
         @SerializedName("vote_count")
@@ -69,4 +66,9 @@ data class Result(
                 }
                 return null
         }
+
+    companion object {
+        const val WIDTH_185_POSTER_QUALIFIER = "w185"
+        const val WIDTH_500_POSTER_QUALIFIER = "w500"
+    }
 }
