@@ -3,14 +3,29 @@
 
     <!--Animation Transition -->
     <string name="movieDetailImageTransitionName">movieImage</string>
+
+    <!--Detail strings -->
     <string name="detail_vote_count">%1$s votes</string>
     <string name="details_runtime">%1$s minutes</string>
-    <string name="error_toast">An error occurred</string>
     <string name="detail_api_error">It looks like there was an API error</string>
     <string name="detail_no_budget">No budget provided</string>
     <string name="detail_no_revenue">No revenue provided</string>
+
+    <!--Main strings -->
+    <string name="error_toast">An error occurred</string>
     <string name="movies_currently_in_theatres">Movies Currently In Theatres!</string>
     <string name="upcoming_movies">Upcoming Movies!</string>
     <string name="most_popular_movies_of_all_time">Most Popular Movies of All Time!</string>
     <string name="most_popular_movies_of_2018">Most Popular Movies of 2018!</string>
+    <string name="runtime">Runtime</string>
+
+    <!-- Content Descriptions -->
+    <string name="content_description_movie_image">Movie Image</string>
+    <string name="content_description_detail_overview">Overview Icon</string>
+    <string name="content_description_release_overview">Release Icon</string>
+    <string name="content_description_ratings_overview">Ratings Icon</string>
+    <string name="content_description_genre_overview">Genre Icon</string>
+    <string name="content_description_budget_overview">Budget Icon</string>
+    <string name="content_description_language_overview">Language Icon</string>
+    <string name="content_description_runtime_overview">Runtime Icon</string>
 </resources>
