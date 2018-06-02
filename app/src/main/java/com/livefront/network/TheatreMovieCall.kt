@@ -2,7 +2,6 @@ package com.livefront.network
 
 import android.arch.lifecycle.MutableLiveData
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import com.livefront.main.adapter.GenericMovieAdapter
 import com.livefront.main.adapter.OnLoadMoreListener
 import com.livefront.model.network.MovieResponse
@@ -65,7 +64,6 @@ class TheatreMovieCall @Inject constructor(private val movieService: MovieServic
     override fun provideOnLoadMoreListener(adapter: GenericMovieAdapter, recyclerView: RecyclerView, liveData: MutableLiveData<MovieResponse?>): OnLoadMoreListener {
         return object : OnLoadMoreListener {
             override fun loadMore() {
-                Log.d("D","debugDebug load more for theatre")
                 //Post on recyclerView to avoid calling update to adapter while RV is still computing scrolls / layouts
                 recyclerView.post {
                     if (adapter.canAddMoreItems()) {

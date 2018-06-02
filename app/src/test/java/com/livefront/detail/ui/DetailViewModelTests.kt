@@ -18,7 +18,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnitRunner
@@ -37,16 +36,12 @@ class DetailViewModelTests {
     @JvmField
     val rule = InstantTaskExecutorRule()
 
-    @Mock
-    private lateinit var observer: Observer<DetailResponse?>
-
     @Before
     fun setup() {
         mockedMovieService = mock(MovieService::class.java)
         detailViewModel = DetailViewModel(mockedMovieService)
 
         mockSchedulers()
-
     }
 
     private fun mockSchedulers() {
@@ -76,8 +71,6 @@ class DetailViewModelTests {
          */
         val id = "id"
 
-        detailViewModel.detailResponse.observeForever(observer)
-
         Mockito.`when`(mockedMovieService.getDetailsForMovie(id)).thenReturn(
                 Observable.just(createResponseObjectFromSampleJson())
         )
@@ -97,8 +90,6 @@ class DetailViewModelTests {
          * Tests an API call that fails
          */
         val id = "id"
-
-        detailViewModel.detailResponse.observeForever(observer)
 
         Mockito.`when`(mockedMovieService.getDetailsForMovie(id)).thenReturn(
                 Observable.create {

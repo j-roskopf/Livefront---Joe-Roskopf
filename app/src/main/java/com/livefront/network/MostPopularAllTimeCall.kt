@@ -2,7 +2,6 @@ package com.livefront.network
 
 import android.arch.lifecycle.MutableLiveData
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import com.livefront.main.adapter.GenericMovieAdapter
 import com.livefront.main.adapter.OnLoadMoreListener
 import com.livefront.model.network.MovieResponse
@@ -23,10 +22,8 @@ class MostPopularAllTimeCall @Inject constructor(private val movieService: Movie
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
-                    Log.d("D","popularDebug - all good parsing " + response?.results?.size)
                     parseResponse(response, liveData)
                 }, {
-                    Log.d("D","popularDebug - baaaaaaaaaaaad ${it.localizedMessage}" )
                     liveData.value = null
                 })
     }
