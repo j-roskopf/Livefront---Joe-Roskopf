@@ -7,6 +7,7 @@ import com.livefront.BuildConfig
 import kotlinx.android.parcel.Parcelize
 
 private const val WIDTH_185_POSTER_QUALIFIER = "w185"
+private const val WIDTH_500_POSTER_QUALIFIER = "w500"
 
 @Parcelize
 data class Result(
@@ -53,6 +54,7 @@ data class Result(
         @Expose
         var releaseDate: String? = null
 ) : Parcelable {
+        //available sizes "w92", "w154", "w185", "w342", "w500", "w780"
 
     internal fun getFullPosterPathW185(): String? {
         posterPath?.let {
@@ -60,4 +62,11 @@ data class Result(
         }
         return null
     }
+
+        internal fun getFullPosterPathW500(): String? {
+                posterPath?.let {
+                        return BuildConfig.BASE_POSTER_PATH.plus(WIDTH_500_POSTER_QUALIFIER).plus(posterPath)
+                }
+                return null
+        }
 }

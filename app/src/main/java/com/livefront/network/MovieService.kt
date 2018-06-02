@@ -2,8 +2,10 @@ package com.livefront.network
 
 import com.livefront.BuildConfig
 import com.livefront.model.network.MovieResponse
+import com.livefront.model.network.detail.DetailResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieService {
@@ -48,4 +50,7 @@ interface MovieService {
     fun getMoviesCurrentlyInTheatre(@Query("primary_release_date.gte") primaryReleaseYearAfter: String,
                                     @Query("primary_release_date.lte") primaryReleaseYearBefore: String,
                                     @Query("page") page: Int): Observable<MovieResponse>
+
+    @GET("movie/{id}?api_key=${BuildConfig.API_KEY}")
+    fun getDetailsForMovie(@Path("id") id: String): Observable<DetailResponse>
 }

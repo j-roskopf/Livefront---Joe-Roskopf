@@ -3,4 +3,6 @@
 
     <!--Animation Transition -->
     <string name="movieDetailImageTransitionName">movieImage</string>
+    <string name="detail_vote_count">%1$s votes</string>
+    <string name="details_runtime">%1$s minutes</string>
 </resources>

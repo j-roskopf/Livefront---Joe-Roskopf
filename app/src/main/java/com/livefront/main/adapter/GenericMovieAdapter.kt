@@ -88,7 +88,7 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     internal fun setProperties(result: Result?, onItemInteractionListener: ItemInteractionListener?) {
         if (result?.getFullPosterPathW185() != null) {
-            Picasso.get().load(result.getFullPosterPathW185()).into(movieItemPosterImage)
+            Picasso.get().load(result.getFullPosterPathW500()).into(movieItemPosterImage)
         } else {
             //todo set no image available
         }
