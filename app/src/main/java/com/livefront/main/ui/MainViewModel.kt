@@ -6,7 +6,10 @@ import android.support.v7.widget.RecyclerView
 import com.livefront.main.adapter.GenericMovieAdapter
 import com.livefront.main.adapter.OnLoadMoreListener
 import com.livefront.model.network.MovieResponse
-import com.livefront.network.*
+import com.livefront.network.MostPopularAllTimeCall
+import com.livefront.network.MovieService
+import com.livefront.network.TheatreMovieCall
+import com.livefront.network.UpcomingMovieCall
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(movieService: MovieService) : ViewModel() {
@@ -17,9 +20,6 @@ class MainViewModel @Inject constructor(movieService: MovieService) : ViewModel(
     internal val mostPopularAllTimeMovies: MutableLiveData<MovieResponse?> = MutableLiveData()
     private val mostPopularAllTimeCall = MostPopularAllTimeCall(movieService)
 
-    internal val mostPopularCurrentYearMovies: MutableLiveData<MovieResponse?> = MutableLiveData()
-    private val mostPopularCurrentYearCall = MostPopularYearCall(movieService)
-
     internal val theatreMovies: MutableLiveData<MovieResponse?> = MutableLiveData()
     private val theatreMoviesCall = TheatreMovieCall(movieService)
 
@@ -27,7 +27,6 @@ class MainViewModel @Inject constructor(movieService: MovieService) : ViewModel(
         when(callType) {
             CallType.Upcoming -> upcomingMovieCall.fetchMovies(page, upcomingMovies)
             CallType.MostPopularAllTime -> mostPopularAllTimeCall.fetchMovies(page, mostPopularAllTimeMovies)
-            CallType.MostPopularCurrentYear -> mostPopularCurrentYearCall.fetchMovies(page, mostPopularCurrentYearMovies)
             CallType.Theatre -> theatreMoviesCall.fetchMovies(page, theatreMovies)
         }
     }
@@ -36,7 +35,6 @@ class MainViewModel @Inject constructor(movieService: MovieService) : ViewModel(
         return when(callType) {
             CallType.Upcoming -> upcomingMovieCall.provideOnLoadMoreListener(adapter, recyclerView, upcomingMovies)
             CallType.MostPopularAllTime -> mostPopularAllTimeCall.provideOnLoadMoreListener(adapter, recyclerView, mostPopularAllTimeMovies)
-            CallType.MostPopularCurrentYear -> mostPopularCurrentYearCall.provideOnLoadMoreListener(adapter, recyclerView, mostPopularCurrentYearMovies)
             CallType.Theatre -> theatreMoviesCall.provideOnLoadMoreListener(adapter, recyclerView, theatreMovies)
         }
     }
@@ -46,6 +44,5 @@ class MainViewModel @Inject constructor(movieService: MovieService) : ViewModel(
 enum class CallType {
     Upcoming,
     MostPopularAllTime,
-    MostPopularCurrentYear,
     Theatre
 }

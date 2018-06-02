@@ -24,7 +24,6 @@ class MainActivity : BaseActivity(), ItemInteractionListener {
 
     private val upcomingGenericMovieAdapter: GenericMovieAdapter by lazy { GenericMovieAdapter(this) }
     private val mostPopularAllTimeGenericMovieAdapter: GenericMovieAdapter by lazy { GenericMovieAdapter(this) }
-    private val mostPopularYearGenericMovieAdapter: GenericMovieAdapter by lazy { GenericMovieAdapter(this) }
     private val theatreMovieGenericAdapter: GenericMovieAdapter by lazy { GenericMovieAdapter(this) }
 
     @Inject
@@ -58,17 +57,6 @@ class MainActivity : BaseActivity(), ItemInteractionListener {
             )
         })
 
-        //fetch most popular current year
-        mainViewModel.fetchMoviesFromCallType(mostPopularAllTimeGenericMovieAdapter.getAndIncrementPage(), CallType.MostPopularCurrentYear)
-        mainViewModel.mostPopularCurrentYearMovies.observe(this as LifecycleOwner, Observer { movieResponse ->
-            displayData(
-                    movieResponse = movieResponse,
-                    adapter = mostPopularYearGenericMovieAdapter,
-                    recyclerView = mainViewMostPopularCurrentYearRecyclerView,
-                    callType = CallType.MostPopularCurrentYear
-            )
-        })
-
         //fetch movies currently in theatre
         mainViewModel.fetchMoviesFromCallType(theatreMovieGenericAdapter.getAndIncrementPage(), CallType.Theatre)
         mainViewModel.theatreMovies.observe(this as LifecycleOwner, Observer { movieResponse ->
@@ -98,11 +86,6 @@ class MainActivity : BaseActivity(), ItemInteractionListener {
         val mostPopularAllTimeLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         mainViewMostPopularAllTimeRecyclerView.layoutManager = mostPopularAllTimeLayoutManager
         mainViewMostPopularAllTimeRecyclerView.adapter = mostPopularAllTimeGenericMovieAdapter
-
-        //most popular current year
-        val mostPopularYearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        mainViewMostPopularCurrentYearRecyclerView.layoutManager = mostPopularYearLayoutManager
-        mainViewMostPopularCurrentYearRecyclerView.adapter = mostPopularYearGenericMovieAdapter
 
         //movies in theatre
         val theatreLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)

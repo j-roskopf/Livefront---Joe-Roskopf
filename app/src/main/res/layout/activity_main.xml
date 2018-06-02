@@ -23,7 +23,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Movies Currently In Theatres!" />
+                android:text="@string/movies_currently_in_theatres"
+                android:textColor="@color/textColor"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mainViewTheatreMoviesRecyclerView"
@@ -31,10 +34,13 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:textColor="@color/textColor"
+                android:textSize="22sp"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Upcoming Movies!" />
+                android:text="@string/upcoming_movies" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mainViewUpcomingRecyclerView"
@@ -42,29 +48,20 @@
                 android:layout_height="match_parent" />
 
             <TextView
+                android:textColor="@color/textColor"
+                android:textSize="22sp"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Most Popular Movies of All Time!" />
+                android:text="@string/most_popular_movies_of_all_time" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mainViewMostPopularAllTimeRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="Most Popular Movies of 2018!" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/mainViewMostPopularCurrentYearRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
         </LinearLayout>
-
 
     </android.support.v4.widget.NestedScrollView>
 

@@ -9,4 +9,8 @@
     <string name="detail_api_error">It looks like there was an API error</string>
     <string name="detail_no_budget">No budget provided</string>
     <string name="detail_no_revenue">No revenue provided</string>
+    <string name="movies_currently_in_theatres">Movies Currently In Theatres!</string>
+    <string name="upcoming_movies">Upcoming Movies!</string>
+    <string name="most_popular_movies_of_all_time">Most Popular Movies of All Time!</string>
+    <string name="most_popular_movies_of_2018">Most Popular Movies of 2018!</string>
 </resources>

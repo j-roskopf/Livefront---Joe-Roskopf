@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.detail_result_content.*
 import javax.inject.Inject
 
-private const val DETAIL_TAG = "DetailActivity"
+private const val DETAIL_TAG = "Detail"
 class DetailActivity : BaseActivity() {
 
     //Movie service for communicating with the API
@@ -129,7 +129,8 @@ class DetailActivity : BaseActivity() {
         detailsReleaseOverview.text = result.releaseDate
 
         //load the image
-        Picasso.get().load(result.getFullPosterPathW500()).into(detailViewImage)
+        Picasso.get().load(result.getFullPosterPathW500()).error(R.drawable.no_image_available)
+                .placeholder(R.drawable.progress_animation).into(detailViewImage)
     }
 
     /**

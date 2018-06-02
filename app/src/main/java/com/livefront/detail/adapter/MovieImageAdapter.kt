@@ -24,7 +24,8 @@ class MovieImageAdapter(private val images: List<MovieImage>) : RecyclerView.Ada
 
         //set the image
         image.filePath?.let {
-            Picasso.get().load(image.getFullImageUrl(it)).into(holder.movieDetailItemImage)
+            Picasso.get().load(image.getFullImageUrl(it)).error(R.drawable.no_image_available)
+                    .placeholder(R.drawable.progress_animation).into(holder.movieDetailItemImage)
         }
     }
 
