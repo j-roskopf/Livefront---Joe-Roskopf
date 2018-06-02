@@ -17,9 +17,9 @@ class DetailViewModel @Inject constructor(private val movieService: MovieService
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
-                    detailResponse.postValue(response)
+                    detailResponse.value = response
                 }, {
-                    detailResponse.postValue(null)
+                    detailResponse.value = null
                 })
     }
 }

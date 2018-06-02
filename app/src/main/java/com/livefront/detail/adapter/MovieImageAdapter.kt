@@ -22,11 +22,25 @@ class MovieImageAdapter(private val images: List<MovieImage>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val image = images[position]
 
-        //set the image
-        image.filePath?.let {
-            Picasso.get().load(image.getFullImageUrl(it)).error(R.drawable.no_image_available)
+        if(imageContainsValidPath(image)) {
+            val path = image.filePath ?: ""
+            Picasso.get().load(image.getFullImageUrl(path)).error(R.drawable.no_image_available)
+                    .placeholder(R.drawable.progress_animation).into(holder.movieDetailItemImage)
+        } else {
+            Picasso.get().load(R.drawable.no_image_available).error(R.drawable.no_image_available)
                     .placeholder(R.drawable.progress_animation).into(holder.movieDetailItemImage)
         }
+    }
+
+    /**
+     * Given a [MovieImage], returns whether or not the MovieImage contains a valid file path
+     *
+     * @param image - the MovieImage containing the path
+     *
+     * @return boolean - t / f if we should use the image path
+     */
+    fun imageContainsValidPath(image: MovieImage): Boolean {
+        return image.filePath != null
     }
 
     /**
