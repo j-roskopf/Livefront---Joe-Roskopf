@@ -118,9 +118,17 @@ dependencies {
     androidTestImplementation "com.android.support.test:rules:$runnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
 
-    testCompile("android.arch.core:core-testing:1.1.1", {
+    testImplementation("android.arch.core:core-testing:1.1.1", {
         exclude group: 'com.android.support', module: 'support-compat'
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-core-utils'
     })
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:2.0') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
 }

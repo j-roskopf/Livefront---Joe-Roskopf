@@ -109,11 +109,16 @@ class MainActivity : BaseActivity(), ItemInteractionListener {
         adapter.totalAmountOfPages = movieResponse.totalPages ?: 0
     }
 
+    /**
+     * Callback for item click. Sends the user to the DetailScreen
+     *
+     * @param result - the clicked on result
+     * @param image - the shared view between the main and the detail screen
+     */
     override fun onItemClicked(result: Result, image: ImageView) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(DetailActivity.EXTRA_BUNDLE_RESULT, result)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, image as View, getString(R.string.movieDetailImageTransitionName))
         startActivity(intent, options.toBundle())
     }
-
 }

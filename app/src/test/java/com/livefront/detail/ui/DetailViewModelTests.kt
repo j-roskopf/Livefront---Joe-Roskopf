@@ -10,6 +10,7 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.annotations.NonNull
+import io.reactivex.annotations.Nullable
 import io.reactivex.disposables.Disposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.plugins.RxJavaPlugins
@@ -31,6 +32,7 @@ class DetailViewModelTests {
 
     private lateinit var detailViewModel: DetailViewModel
     private lateinit var mockedMovieService: MovieService
+    private var observer = null
 
     @Rule
     @JvmField
@@ -77,7 +79,7 @@ class DetailViewModelTests {
 
         detailViewModel.getMovieDetails(id)
 
-        val response = detailViewModel.detailResponse.blockingObserve()
+        val response = blockingObserve(detailViewModel.detailResponse)
 
         if (response == null) {
             fail("LiveData was null after a successful API call")
@@ -102,11 +104,12 @@ class DetailViewModelTests {
 
         detailViewModel.getMovieDetails(id)
 
-        val response = detailViewModel.detailResponse.blockingObserve()
+        val response = blockingObserve(detailViewModel.detailResponse)
 
         if (response != null) {
             fail("LiveData had a value after a failed API call")
         }
+
     }
 
     /**
@@ -114,16 +117,20 @@ class DetailViewModelTests {
      *
      * borrowed from here https://stackoverflow.com/questions/44270688/unit-testing-room-and-livedata
      */
-    private fun <T> LiveData<T>.blockingObserve(): T? {
-        var value: T? = null
+    private fun <T> blockingObserve(liveData: LiveData<T>): T? {
+        val data = arrayOfNulls<Any>(1)
         val latch = CountDownLatch(1)
-        val innerObserver = Observer<T> {
-            value = it
-            latch.countDown()
+        val observer = object : Observer<T> {
+            override fun onChanged(@Nullable o: T?) {
+                data[0] = o
+                latch.countDown()
+                liveData.removeObserver(this)
+            }
         }
-        observeForever(innerObserver)
+        liveData.observeForever(observer)
         latch.await(2, TimeUnit.SECONDS)
-        return value
+        //noinspection unchecked
+        return data[0] as T
     }
 
     /**

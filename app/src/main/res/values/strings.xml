@@ -28,4 +28,11 @@
     <string name="content_description_budget_overview">Budget Icon</string>
     <string name="content_description_language_overview">Language Icon</string>
     <string name="content_description_runtime_overview">Runtime Icon</string>
+    <string name="overview">Overview</string>
+    <string name="detail_overview">Overview</string>
+    <string name="details_release_date">Release Date</string>
+    <string name="details_rating">Rating</string>
+    <string name="detail_genre">Genres</string>
+    <string name="details_budget_revenue">Budget / Revenue</string>
+    <string name="details_spoken_languages">Spoken Languages</string>
 </resources>
