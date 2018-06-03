@@ -2,6 +2,7 @@ package com.livefront.network
 
 import android.arch.lifecycle.MutableLiveData
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import com.livefront.main.adapter.GenericMovieAdapter
 import com.livefront.main.adapter.OnLoadMoreListener
 import com.livefront.model.network.MovieResponse
@@ -9,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-private const val THEATRE_DATE_WEEK_OFFSET = -3
+private const val TAG = "UpcomingMovieCall"
 
 class TheatreMovieCall @Inject constructor(private val movieService: MovieService) : MovieCallInterface {
 
@@ -29,6 +30,7 @@ class TheatreMovieCall @Inject constructor(private val movieService: MovieServic
                     parseResponse(response, liveData)
                 }, {
                     liveData.value = null
+                    Log.e(TAG, "An error occurred while fetching theatre movies", it)
                 })
     }
 
@@ -45,12 +47,16 @@ class TheatreMovieCall @Inject constructor(private val movieService: MovieServic
         //which will happen the first time around
         var currentMovieResponse = liveData.value ?: MovieResponse()
         var currentResults = currentMovieResponse.results ?: listOf()
-        response.results?.let {
-            //assuming we have good data, append it to what we currently have and post it to our LiveData
-            currentResults += it
-            currentMovieResponse = response
-            currentMovieResponse.results = currentResults
-            liveData.postValue(currentMovieResponse)
+        if(response.results != null) {
+            response.results?.let {
+                //assuming we have good data, append it to what we currently have and post it to our LiveData
+                currentResults += it
+                currentMovieResponse = response
+                currentMovieResponse.results = currentResults
+                liveData.postValue(currentMovieResponse)
+            }
+        } else {
+            Log.e(TAG, "An error occurred while fetching / parsing theatre movies")
         }
     }
 

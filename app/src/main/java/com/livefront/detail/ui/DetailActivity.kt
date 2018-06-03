@@ -16,6 +16,7 @@ import com.livefront.network.MovieService
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.detail_result_content.*
+import java.text.NumberFormat
 import javax.inject.Inject
 
 private const val DETAIL_TAG = "Detail"
@@ -91,14 +92,14 @@ class DetailActivity : BaseActivity() {
 
         //set the budget (handling if the API provided no value)
         if (response.budget != 0) {
-            detailBudgetBody.text = response.budget.toString()
+            detailBudgetBody.text = NumberFormat.getCurrencyInstance().format(response.budget)
         } else {
             detailBudgetBody.text = getString(R.string.detail_no_budget)
         }
 
         //set the revenue (handling if the API provided no value)
         if (response.revenue != 0) {
-            detailRevenueBody.text = response.revenue.toString()
+            detailRevenueBody.text = NumberFormat.getCurrencyInstance().format(response.revenue)
         } else {
             detailRevenueBody.text = getString(R.string.detail_no_revenue)
         }

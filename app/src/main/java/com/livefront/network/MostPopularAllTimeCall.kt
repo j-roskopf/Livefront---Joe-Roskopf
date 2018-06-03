@@ -2,12 +2,15 @@ package com.livefront.network
 
 import android.arch.lifecycle.MutableLiveData
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import com.livefront.main.adapter.GenericMovieAdapter
 import com.livefront.main.adapter.OnLoadMoreListener
 import com.livefront.model.network.MovieResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+
+private const val TAG = "MostPopularCall"
 
 class MostPopularAllTimeCall @Inject constructor(private val movieService: MovieService) : MovieCallInterface {
 
@@ -25,6 +28,7 @@ class MostPopularAllTimeCall @Inject constructor(private val movieService: Movie
                     parseResponse(response, liveData)
                 }, {
                     liveData.value = null
+                    Log.e(TAG, "An error occurred while fetching most popular movies", it)
                 })
     }
 
@@ -41,12 +45,16 @@ class MostPopularAllTimeCall @Inject constructor(private val movieService: Movie
         //which will happen the first time around
         var currentMovieResponse = liveData.value ?: MovieResponse()
         var currentResults = currentMovieResponse.results ?: listOf()
-        response.results?.let {
-            //assuming we have good data, append it to what we currently have and post it to our LiveData
-            currentResults += it
-            currentMovieResponse = response
-            currentMovieResponse.results = currentResults
-            liveData.postValue(currentMovieResponse)
+        if(response.results != null) {
+            response.results?.let {
+                //assuming we have good data, append it to what we currently have and post it to our LiveData
+                currentResults += it
+                currentMovieResponse = response
+                currentMovieResponse.results = currentResults
+                liveData.postValue(currentMovieResponse)
+            }
+        } else {
+            Log.e(TAG, "An error occurred while fetching / parsing most popular movies")
         }
     }
 
