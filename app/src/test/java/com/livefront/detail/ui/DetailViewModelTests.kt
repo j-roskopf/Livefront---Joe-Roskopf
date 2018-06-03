@@ -32,7 +32,6 @@ class DetailViewModelTests {
 
     private lateinit var detailViewModel: DetailViewModel
     private lateinit var mockedMovieService: MovieService
-    private var observer = null
 
     @Rule
     @JvmField

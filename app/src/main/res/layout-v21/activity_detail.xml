@@ -5,11 +5,10 @@
     android:id="@+id/detailBaseLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
     tools:context=".detail.ui.DetailActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/main.appbar"
+        android:id="@+id/detailAppbar"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:fitsSystemWindows="true"
@@ -62,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:layout_anchor="@id/main.appbar"
+        app:layout_anchor="@id/detailAppbar"
         app:layout_anchorGravity="bottom|right|end"
         app:srcCompat="@drawable/ic_image_white_24dp" />
 </android.support.design.widget.CoordinatorLayout>

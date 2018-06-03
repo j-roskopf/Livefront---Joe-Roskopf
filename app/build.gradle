@@ -47,29 +47,33 @@ kotlin {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
-    implementation "android.arch.lifecycle:runtime:1.1.1"
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    def constraintLayoutVersion = "1.1.0"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+
+    def archVersions = "1.1.1"
+    implementation "android.arch.lifecycle:extensions:$archVersions"
+    implementation "android.arch.lifecycle:runtime:$archVersions"
+    testImplementation("android.arch.core:core-testing:$archVersions", {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+    })
+
+    def junitVersion = "4.1.2"
+    testImplementation "junit:junit:$junitVersion"
 
     def androidSupportVersion = "27.1.1"
     implementation "com.android.support:appcompat-v7:$androidSupportVersion"
     implementation "com.android.support:recyclerview-v7:$androidSupportVersion"
     implementation "com.android.support:design:$androidSupportVersion"
-
+    implementation "com.android.support:exifinterface:$androidSupportVersion"
 
     def daggerVersion = "2.14.1"
-    // Dagger core
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     implementation "com.google.dagger:dagger:$daggerVersion"
-    // Dagger Android
-    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-    // if you are not using support library, include this instead
     implementation "com.google.dagger:dagger-android:$daggerVersion"
 
     def segmentedButtonVersion = "1.0.6"
@@ -110,25 +114,17 @@ dependencies {
         exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib"
     }
 
-    def junitVersion = "4.12"
     def runnerVersion = "1.0.2"
     def espressoVersion = "3.0.2"
+    def espressoContribVersion = "2.0"
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "com.android.support.test:runner:$runnerVersion"
     androidTestImplementation "com.android.support.test:rules:$runnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
-
-    testImplementation("android.arch.core:core-testing:1.1.1", {
-        exclude group: 'com.android.support', module: 'support-compat'
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.android.support', module: 'support-core-utils'
-    })
-
-    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:2.0') {
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espressoVersion"
+    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:$espressoContribVersion") {
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude module: 'recyclerview-v7'
     }
-
-    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
 }

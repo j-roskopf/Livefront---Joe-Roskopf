@@ -10,14 +10,21 @@
     <string name="detail_api_error">It looks like there was an API error</string>
     <string name="detail_no_budget">No budget provided</string>
     <string name="detail_no_revenue">No revenue provided</string>
+    <string name="detail_overview">Overview</string>
+    <string name="details_release_date">Release Date</string>
+    <string name="details_rating">Rating</string>
+    <string name="detail_genre">Genres</string>
+    <string name="details_budget_revenue">Budget / Revenue</string>
+    <string name="details_spoken_languages">Spoken Languages</string>
 
     <!--Main strings -->
     <string name="error_toast">An error occurred</string>
     <string name="movies_currently_in_theatres">Movies Currently In Theatres!</string>
     <string name="upcoming_movies">Upcoming Movies!</string>
     <string name="most_popular_movies_of_all_time">Most Popular Movies of All Time!</string>
-    <string name="most_popular_movies_of_2018">Most Popular Movies of 2018!</string>
     <string name="runtime">Runtime</string>
+    <string name="try_again">Try again?</string>
+    <string name="generic_error_message">Something bad happened.</string>
 
     <!-- Content Descriptions -->
     <string name="content_description_movie_image">Movie Image</string>
@@ -28,11 +35,5 @@
     <string name="content_description_budget_overview">Budget Icon</string>
     <string name="content_description_language_overview">Language Icon</string>
     <string name="content_description_runtime_overview">Runtime Icon</string>
-    <string name="overview">Overview</string>
-    <string name="detail_overview">Overview</string>
-    <string name="details_release_date">Release Date</string>
-    <string name="details_rating">Rating</string>
-    <string name="detail_genre">Genres</string>
-    <string name="details_budget_revenue">Budget / Revenue</string>
-    <string name="details_spoken_languages">Spoken Languages</string>
+
 </resources>

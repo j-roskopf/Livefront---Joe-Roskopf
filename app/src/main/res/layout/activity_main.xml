@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainBaseLayout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -34,13 +35,13 @@
                 android:layout_height="match_parent" />
 
             <TextView
-                android:textColor="@color/textColor"
-                android:textSize="22sp"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="@string/upcoming_movies" />
+                android:text="@string/upcoming_movies"
+                android:textColor="@color/textColor"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mainViewUpcomingRecyclerView"
@@ -48,13 +49,13 @@
                 android:layout_height="match_parent" />
 
             <TextView
-                android:textColor="@color/textColor"
-                android:textSize="22sp"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="@string/most_popular_movies_of_all_time" />
+                android:text="@string/most_popular_movies_of_all_time"
+                android:textColor="@color/textColor"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mainViewMostPopularAllTimeRecyclerView"

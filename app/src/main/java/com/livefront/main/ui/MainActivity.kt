@@ -4,9 +4,11 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.livefront.BaseActivity
@@ -19,7 +21,7 @@ import com.livefront.model.network.Result
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-
+private const val TAG = "MainActivity"
 class MainActivity : BaseActivity(), ItemInteractionListener {
 
     private val upcomingGenericMovieAdapter: GenericMovieAdapter by lazy { GenericMovieAdapter(this) }
@@ -34,6 +36,14 @@ class MainActivity : BaseActivity(), ItemInteractionListener {
         setContentView(R.layout.activity_main)
 
         setupRecyclerViews()
+
+        fetchData()
+    }
+
+    /**
+     * Starts off API calls + observers for our 3 RecyclerViews
+     */
+    private fun fetchData() {
 
         //fetch upcoming
         mainViewModel.fetchMoviesFromCallType(upcomingGenericMovieAdapter.getAndIncrementPage(), CallType.Upcoming)
@@ -94,11 +104,18 @@ class MainActivity : BaseActivity(), ItemInteractionListener {
     }
 
     private fun displayData(movieResponse: MovieResponse?, adapter: GenericMovieAdapter, recyclerView: RecyclerView, callType: CallType) {
-        movieResponse?.results?.let {
-            val currentAdapterSize = adapter.itemCount
-            updateAdapterWithResponse(movieResponse, adapter)
-            adapter.setOnLoadMoreListener(mainViewModel.getLoadMoreListenerFromType(adapter, recyclerView, callType))
-            adapter.notifyItemInserted(currentAdapterSize)
+        if(movieResponse != null) {
+            movieResponse.results?.let {
+                val currentAdapterSize = adapter.itemCount
+                updateAdapterWithResponse(movieResponse, adapter)
+                adapter.setOnLoadMoreListener(mainViewModel.getLoadMoreListenerFromType(adapter, recyclerView, callType))
+                adapter.notifyItemInserted(currentAdapterSize)
+            }
+        } else {
+            Snackbar.make(mainBaseLayout, R.string.generic_error_message, Snackbar.LENGTH_LONG).setAction(R.string.try_again, {
+                fetchData()
+            }).show()
+            Log.e(TAG, "We tried displaying some data in $TAG and it was bad. Check previous Log.e calls for API errors")
         }
     }
 
