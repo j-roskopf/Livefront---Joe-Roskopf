@@ -97,7 +97,7 @@ class GenericMovieAdapter(private val onItemInteractionListener: ItemInteraction
     fun addLoadingItem(notifyAdapter: Boolean = true) {
         val loadingItem: Result? = null
         results += loadingItem
-        if(notifyAdapter) {
+        if (notifyAdapter) {
             notifyItemInserted(itemCount)
         }
     }
@@ -114,7 +114,7 @@ class GenericMovieAdapter(private val onItemInteractionListener: ItemInteraction
             it == null
         }
 
-        if(notifyAdapter) {
+        if (notifyAdapter) {
             notifyItemRemoved(itemCount)
         }
     }

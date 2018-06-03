@@ -79,7 +79,7 @@ class DetailViewModelTests {
 
         val response = detailViewModel.detailResponse.blockingObserve()
 
-        if(response == null) {
+        if (response == null) {
             fail("LiveData was null after a successful API call")
         }
     }
@@ -96,7 +96,7 @@ class DetailViewModelTests {
                     //simulate some kind of error happening during the API call.
                     //Such as the API is down, or the user is not connected.
                     //For testing purposes I'm dividing by 0, a classic no-no
-                    1 / ( 1 - 1)
+                    1 / (1 - 1)
                 }
         )
 
@@ -104,7 +104,7 @@ class DetailViewModelTests {
 
         val response = detailViewModel.detailResponse.blockingObserve()
 
-        if(response != null) {
+        if (response != null) {
             fail("LiveData had a value after a failed API call")
         }
     }

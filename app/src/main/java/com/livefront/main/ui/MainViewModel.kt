@@ -24,7 +24,7 @@ class MainViewModel @Inject constructor(movieService: MovieService) : ViewModel(
     private val theatreMoviesCall = TheatreMovieCall(movieService)
 
     fun fetchMoviesFromCallType(page: Int, callType: CallType) {
-        when(callType) {
+        when (callType) {
             CallType.Upcoming -> upcomingMovieCall.fetchMovies(page, upcomingMovies)
             CallType.MostPopularAllTime -> mostPopularAllTimeCall.fetchMovies(page, mostPopularAllTimeMovies)
             CallType.Theatre -> theatreMoviesCall.fetchMovies(page, theatreMovies)
@@ -32,7 +32,7 @@ class MainViewModel @Inject constructor(movieService: MovieService) : ViewModel(
     }
 
     fun getLoadMoreListenerFromType(adapter: GenericMovieAdapter, recyclerView: RecyclerView, callType: CallType): OnLoadMoreListener {
-        return when(callType) {
+        return when (callType) {
             CallType.Upcoming -> upcomingMovieCall.provideOnLoadMoreListener(adapter, recyclerView, upcomingMovies)
             CallType.MostPopularAllTime -> mostPopularAllTimeCall.provideOnLoadMoreListener(adapter, recyclerView, mostPopularAllTimeMovies)
             CallType.Theatre -> theatreMoviesCall.provideOnLoadMoreListener(adapter, recyclerView, theatreMovies)

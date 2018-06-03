@@ -15,7 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class GenericMovieAdapterTests {
 
-    private val onItemClickListener = object: ItemInteractionListener {
+    private val onItemClickListener = object : ItemInteractionListener {
         override fun onItemClicked(result: Result, imageView: ImageView) {
             //nothing to do here
         }

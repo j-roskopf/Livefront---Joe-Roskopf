@@ -13,11 +13,12 @@ import javax.inject.Inject
 class LivefrontApplication : Application(), HasActivityInjector, HasSupportFragmentInjector {
     @Inject
     lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
-    @Inject lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    @Inject
+    lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
     override fun onCreate() {
         super.onCreate()
-        
+
         DaggerAppComponent
                 .builder()
                 .application(this)

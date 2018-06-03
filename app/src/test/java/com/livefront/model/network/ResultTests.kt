@@ -13,13 +13,13 @@ class ResultTests {
     fun getPosterPathTests() {
         val results = createResults(4)
         results.forEach {
-            if(it.getFullPosterPathW185() == null || it.getFullPosterPathW500() == null) {
+            if (it.getFullPosterPathW185() == null || it.getFullPosterPathW500() == null) {
                 fail("Poster path is null when it shouldn't be")
             }
         }
 
         val result = Result()
-        if(result.getFullPosterPathW500() != null || result.getFullPosterPathW185() != null) {
+        if (result.getFullPosterPathW500() != null || result.getFullPosterPathW185() != null) {
             fail("Poster path wasn't null when it should be")
         }
     }

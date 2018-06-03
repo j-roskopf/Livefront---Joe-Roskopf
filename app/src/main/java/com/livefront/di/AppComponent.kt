@@ -18,6 +18,7 @@ interface AppComponent {
     interface Builder {
         @BindsInstance
         fun application(application: LivefrontApplication): AppComponent.Builder
+
         fun build(): AppComponent
     }
 

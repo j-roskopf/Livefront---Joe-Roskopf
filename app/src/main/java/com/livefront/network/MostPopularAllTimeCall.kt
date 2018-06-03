@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MostPopularAllTimeCall @Inject constructor(private val movieService: MovieService): MovieCallInterface {
+class MostPopularAllTimeCall @Inject constructor(private val movieService: MovieService) : MovieCallInterface {
 
     /**
      * Fetches most popular movies of all time! This method is the start of the chain that will eventually update
@@ -62,7 +62,7 @@ class MostPopularAllTimeCall @Inject constructor(private val movieService: Movie
             override fun loadMore() {
                 //Post on recyclerView to avoid calling update to adapter while RV is still computing scrolls / layouts
                 recyclerView.post {
-                    if(adapter.canAddMoreItems()) {
+                    if (adapter.canAddMoreItems()) {
                         adapter.addLoadingItem()
                         adapter.notifyItemInserted(adapter.itemCount)
                         fetchMovies(adapter.getAndIncrementPage(), liveData)

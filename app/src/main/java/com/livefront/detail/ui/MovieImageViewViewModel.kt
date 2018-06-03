@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MovieImageViewViewModel @Inject constructor(private val movieService: MovieService): ViewModel() {
+class MovieImageViewViewModel @Inject constructor(private val movieService: MovieService) : ViewModel() {
 
     //LiveData to be observed by the activity to be notificed when the API updates
     internal val imageResponse: MutableLiveData<ImageResponse?> = MutableLiveData()
