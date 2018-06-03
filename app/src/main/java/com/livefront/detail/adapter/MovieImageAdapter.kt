@@ -22,7 +22,7 @@ class MovieImageAdapter(private val images: List<MovieImage>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val image = images[position]
 
-        if(imageContainsValidPath(image)) {
+        if (imageContainsValidPath(image)) {
             val path = image.filePath ?: ""
             Picasso.get().load(image.getFullImageUrl(path)).error(R.drawable.no_image_available)
                     .placeholder(R.drawable.progress_animation).into(holder.movieDetailItemImage)

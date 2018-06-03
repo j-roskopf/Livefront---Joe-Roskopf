@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.detail_result_content.*
 import javax.inject.Inject
 
 private const val DETAIL_TAG = "Detail"
+
 class DetailActivity : BaseActivity() {
 
     //Movie service for communicating with the API
@@ -38,7 +39,7 @@ class DetailActivity : BaseActivity() {
         val result = intent.extras[EXTRA_BUNDLE_RESULT] as? Result
 
         //If our result is good
-        if(result != null) {
+        if (result != null) {
             //display the relevant items to our UI
             displayResultFromOverview(result)
 
@@ -49,8 +50,8 @@ class DetailActivity : BaseActivity() {
             detailViewModel.getMovieDetails(result.id.toString())
 
             //And observe the changes
-            detailViewModel.detailResponse.observe(this as LifecycleOwner, Observer {  response ->
-                if(response != null) {
+            detailViewModel.detailResponse.observe(this as LifecycleOwner, Observer { response ->
+                if (response != null) {
                     displayResultsFromDetail(response)
                 } else {
                     Snackbar.make(detailBaseLayout, R.string.detail_api_error, Snackbar.LENGTH_SHORT).show()

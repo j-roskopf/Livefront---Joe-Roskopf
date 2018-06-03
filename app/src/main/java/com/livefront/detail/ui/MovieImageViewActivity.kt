@@ -10,14 +10,15 @@ import com.livefront.BaseActivity
 import com.livefront.R
 import com.livefront.detail.adapter.MovieImageAdapter
 import com.livefront.model.network.image.ImageResponse
-import com.livefront.model.network.image.MovieImage
 import kotlinx.android.synthetic.main.activity_movie_image_view.*
 import javax.inject.Inject
 
 private const val MOVIE_IMAGE_TAG = "MovieImageViewActivity"
+
 class MovieImageViewActivity : BaseActivity() {
 
-    @Inject lateinit var movieImageViewModel: MovieImageViewViewModel
+    @Inject
+    lateinit var movieImageViewModel: MovieImageViewViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,16 +27,16 @@ class MovieImageViewActivity : BaseActivity() {
         //set back button enabled in toolbar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        
+
         val id = intent.extras[EXTRA_BUNDLE_MOVIE_ID] as? String
 
         //If we have the id from the movie to display
-        if(id != null) {
+        if (id != null) {
             //fetch the images of the movie
             movieImageViewModel.getImagesForMovie(id)
 
             //and observe the changes
-            movieImageViewModel.imageResponse.observe(this as LifecycleOwner, Observer {  imageResponse ->
+            movieImageViewModel.imageResponse.observe(this as LifecycleOwner, Observer { imageResponse ->
                 displayImages(imageResponse)
             })
         } else {

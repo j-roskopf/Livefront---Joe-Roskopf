@@ -57,7 +57,7 @@ class MainViewModelTests {
 
         val response = mainViewModel.upcomingMovies.blockingObserve()
 
-        if(response == null) {
+        if (response == null) {
             Assert.fail("LiveData was null after a successful API call")
         }
     }
@@ -82,7 +82,7 @@ class MainViewModelTests {
 
         val response = mainViewModel.upcomingMovies.blockingObserve()
 
-        if(response != null) {
+        if (response != null) {
             Assert.fail("LiveData was not null after a failed API call")
         }
     }
@@ -102,7 +102,7 @@ class MainViewModelTests {
 
         val response = mainViewModel.theatreMovies.blockingObserve()
 
-        if(response == null) {
+        if (response == null) {
             Assert.fail("LiveData was null after a successful API call")
         }
     }
@@ -127,7 +127,7 @@ class MainViewModelTests {
 
         val response = mainViewModel.theatreMovies.blockingObserve()
 
-        if(response != null) {
+        if (response != null) {
             Assert.fail("LiveData was not null after a failed API call")
         }
     }
@@ -147,7 +147,7 @@ class MainViewModelTests {
 
         val response = mainViewModel.mostPopularAllTimeMovies.blockingObserve()
 
-        if(response == null) {
+        if (response == null) {
             Assert.fail("LiveData was null after a successful API call")
         }
     }
@@ -172,7 +172,7 @@ class MainViewModelTests {
 
         val response = mainViewModel.mostPopularAllTimeMovies.blockingObserve()
 
-        if(response != null) {
+        if (response != null) {
             Assert.fail("LiveData was not null after a failed API call")
         }
     }
